@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私立希望ヶ峰学園 - 入学申请</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            position: relative;
+            border-bottom: 3px solid #8b0000;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .logo-img {
+            height: 80px;
+            width: auto;
+        }
+        .logo-text {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #8b0000, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+        h1 {
+            color: #8b0000;
+            border-bottom: 2px solid #8b0000;
+            padding-bottom: 10px;
+            text-shadow: 0 0 8px rgba(139, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #d3d3d3;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #2d2d2d;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #8b0000;
+            box-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+            outline: none;
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .btn {
+            background: linear-gradient(135deg, #8b0000, #ff4500);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #6b0000, #e03e00);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 14px;
+            padding: 20px;
+        }
+        .required:after {
+            content: " *";
+            color: #ff4500;
+        }
+        ::placeholder {
+            color: #666;
+        }
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #8b0000, 0 0 20px #8b0000;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #ff4500, 0 0 30px #ff4500, 0 0 40px #ff4500;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="logo" class="logo-img">
+            <div>
+                <div class="logo-text">私立希望ヶ峰学園</div>
+                <div class="glow">~培养未来精英的超精英学校~</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>私立希望ヶ峰学園 入学申请</h1>
+        <p>欢迎申请入学私立希望之峰学园。请填写以下表格并提交您的申请。所有带星号(*)的字段为必填项。</p>
+        
+        <form id="admissionForm">
+            <div class="form-group">
+                <label for="fullName" class="required">全名</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="请输入您的全名">
+            </div>
+            
+            <div class="form-group">
+                <label for="birthDate" class="required">出生日期</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">性别</label>
+                <select id="gender" name="gender">
+                    <option value="">请选择</option>
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                    <option value="other">其他</option>
+                    <option value="prefer-not-to-say">不愿透露</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="email" class="required">电子邮箱</label>
+                <input type="email" id="email" name="email" required placeholder="example@domain.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone" class="required">联系电话</label>
+                <input type="tel" id="phone" name="phone" required placeholder="请输入您的联系电话">
+            </div>
+            
+            <div class="form-group">
+                <label for="address" class="required">居住地址</label>
+                <textarea id="address" name="address" required placeholder="请输入您的详细地址"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="talent" class="required">您的"超高校级"才能</label>
+                <input type="text" id="talent" name="talent" placeholder="例如：超高校级的程序员、超高校级的运动员等" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="talentProof" class="required">才能证明(请简要描述您的才能成就)</label>
+                <textarea id="talentProof" name="talentProof" required placeholder="请提供能证明您才能的具体事例或成就"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="education">教育背景</label>
+                <textarea id="education" name="education" placeholder="请列出您之前的教育经历，包括学校名称和就读时间"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="motivation" class="required">为什么想加入希望之峰学院？</label>
+                <textarea id="motivation" name="motivation" required placeholder="请详细说明您申请希望之峰学院的原因和期望"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="reference">推荐人(如有)</label>
+                <input type="text" id="reference" name="reference" placeholder="推荐人姓名及联系方式">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="agreeTerms" required style="width: auto; margin-right: 10px;"> 
+                    <span class="required">我确认以上信息真实有效，并同意希望之峰学院的入学条款</span>
+                </label>
+            </div>
+            
+            <button type="submit" class="btn">提交申请</button>
+        </form>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 私立希望ヶ峰学園 版权所有</p>
+        <p>如有疑问，请联系招生办公室: admin@3il33n.com</p>
+        <p style="margin-top: 15px; color: #8b0000; font-weight: bold;">"发掘你的超高校级才能"</p>
+    </div>
+
+    <script>
+        document.getElementById('admissionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 创建弹窗效果
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '1000';
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.backgroundColor = '#1e1e1e';
+            modalContent.style.padding = '40px';
+            modalContent.style.borderRadius = '10px';
+            modalContent.style.border = '2px solid #8b0000';
+            modalContent.style.textAlign = 'center';
+            modalContent.style.maxWidth = '500px';
+            
+            const h2 = document.createElement('h2');
+            h2.textContent = '申请已提交';
+            h2.style.color = '#8b0000';
+            h2.style.marginBottom = '20px';
+            
+            const p = document.createElement('p');
+            p.textContent = '感谢您的申请！我们已收到您的入学申请材料。招生委员会将在评审后与您联系。';
+            p.style.marginBottom = '30px';
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '关闭';
+            closeBtn.style.padding = '10px 25px';
+            closeBtn.style.background = '#8b0000';
+            closeBtn.style.color = 'white';
+            closeBtn.style.border = 'none';
+            closeBtn.style.borderRadius = '5px';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.style.transition = 'all 0.3s';
+            
+            closeBtn.onmouseover = function() {
+                this.style.background = '#ff4500';
+            };
+            closeBtn.onmouseout = function() {
+                this.style.background = '#8b0000';
+            };
+            closeBtn.onclick = function() {
+                document.body.removeChild(modal);
+                document.getElementById('admissionForm').reset();
+            };
+            
+            modalContent.appendChild(h2);
+            modalContent.appendChild(p);
+            modalContent.appendChild(closeBtn);
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+        });
+    </script>
+</body>
+</html>
