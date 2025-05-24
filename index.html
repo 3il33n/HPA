@@ -22,6 +22,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            position: relative;
         }
         .header {
             background-color: #000000;
@@ -230,22 +231,42 @@
             color: var(--orange-red);
         }
         .monokuma {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 100px;
-    cursor: pointer;
-    opacity: 0.9;
-    transition: all 0.3s;
-    filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.5));
-    z-index: 9999;
-}
-
-.monokuma:hover {
-    opacity: 1;
-    transform: rotate(10deg) scale(1.1);
-    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
-}
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: all 0.3s;
+            filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.5));
+            z-index: 9999;
+        }
+        .monokuma:hover {
+            opacity: 1;
+            transform: rotate(10deg) scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+        }
+        #despairVideo {
+            margin-top: 30px;
+            border-top: 2px dashed var(--blood-red);
+            padding-top: 20px;
+        }
+        #zvVideo {
+            background-color: #000;
+        }
+        .despair-warning {
+            color: var(--orange-red);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            font-weight: bold;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
+        }
+        .pulse-effect {
+            animation: pulse 0.5s 3;
+        }
     </style>
 </head>
 <body>
@@ -267,33 +288,43 @@
         <a href="#notice">重要通知</a>
         <a href="apply.html" class="apply-button">入学申请</a>
         <a href="javascript:void(0)" onclick="showSecret()" style="text-decoration: line-through; color: gray;">机密内容</a>
-</nav>
-
-<div id="secretModal" class="hidden container">
-    <h2 class="section-title">机密内容</h2>
-    <p id="secretContent" class="notice-alert"></p>
-</div>
-
-<script>
-    function showSecret() {
-        const password = prompt("请输入访问机密内容的密码：");
-        if (password === "11037") {
-            const content = `神座出流计划：学园从创立之初就以培养出拥有人类一切才能的代表全世界人类“真正的希望”的“超高校级的希望”为目标，以学园创立者神座出流的名字命名的该计划从学院建立之初即开始实施。
-学校在培养各个领域的栋梁时，也在秘密的研究这些过人才能的秘密。由于研究资金的缺乏而开设了预备学科，表面上看是通过普通考试进入学园的学霸中的学霸、可能将来会觉醒超高校级才能的预备役，实际上是只要交够足够的学费即可进入学园。
-相当一大部分学生因为憧憬希望之峰学园而选择了预备学科，这也为研究提供了大量的资金。
-在研究告一段落后，希望之峰学园决定从预备学科中找一个毫无才能、牺牲了也不可惜的学生日向创进行人体试验。在他自信受挫后同意配合的前提下，我们对这个学生的大脑直接进行了改造，剔除了所有影响获取才能的感情与人格。这名学生也从此成为拥有各种超高校级才能，被称为“超高校级的希望”的神座出流。希望之峰学园一直对此秘而不宣，就连在校学生也仅仅知道神座出流这个名字。
-`;
-            document.getElementById("secretContent").textContent = content;
-            document.getElementById("secretModal").classList.remove("hidden");
-            window.scrollTo({ top: document.getElementById("secretModal").offsetTop - 50, behavior: 'smooth' });
-        } else if (password !== null) {
-            alert("密码错误。无法显示机密内容。");
-        }
-    }
-</script>
-
-
     </nav>
+
+    <div id="secretModal" class="hidden container">
+        <h2 class="section-title">机密内容</h2>
+        <p id="secretContent" class="notice-alert"></p>
+        
+        <div id="despairVideo" class="hidden">
+            <h3 style="color: var(--blood-red);">绝望影片档案 ZV.mp4</h3>
+            <p style="font-style: italic; color: #aaa;">
+                <span class="despair-warning">※ 由江之岛盾子拍摄，御手洗亮太剪辑的绝望影片 ※</span><br>
+                <span style="font-size: 0.8em;">警告：此内容可能造成心理不适</span>
+            </p>
+            
+            <video id="zvVideo" width="100%" controls style="margin: 20px 0; border: 2px solid var(--blood-red);">
+                <source src="ZV.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+            
+            <div class="notice-alert" style="background-color: rgba(139, 0, 0, 0.2);">
+                <h4>档案说明：</h4>
+                <p>此影片是"人类史上最大最恶的绝望事件"的关键传播媒介之一，包含强烈的洗脑暗示。</p>
+                <p>观看后可能出现：</p>
+                <ul>
+                    <li>情绪剧烈波动</li>
+                    <li>认知扭曲</li>
+                    <li>对希望的质疑</li>
+                    <li>不可逆的绝望倾向</li>
+                </ul>
+                <button class="btn" onclick="confirmDespair()" style="background: linear-gradient(135deg, #333, #000);">
+                    我理解风险并确认播放
+                </button>
+                <p style="font-size: 0.7em; margin-top: 10px; color: #aaa;">
+                    * 根据希望之峰学园第15条特别规定，观看此影片需承担全部责任 *
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div class="slideshow">
         <div class="slideshow-text">
@@ -379,8 +410,10 @@
 
     <footer>
         <p>© 2025 私立希望ヶ峰学園 版权所有</p>
-        <p style="margin-top: 15px; color: #8b0000; font-weight: bold;">"才能是照亮希望的光"</p>
+        <p style="margin-top: 15px; color: var(--orange-red); font-weight: bold;">"才能是照亮希望的光。"</p>
     </footer>
+
+    <img src="monokuma.png" alt="Monokuma" class="monokuma" onclick="speakMonokuma()">
 
     <script>
         // 校规第15条交互
@@ -392,12 +425,12 @@
         // 随机结果
         function showRandomResult() {
             const results = [
-                "抽签结果：超高校级的幸运",
-                "抽签结果：超高校级的游戏玩家",
-                "抽签结果：超高校级的侦探",
-                "抽签结果：超高校级的偶像",
-                "抽签结果：超高校级的骗子",
-                "抽签结果：超高校级的护士",
+                "抽签结果：超级高校级的幸运",
+                "抽签结果：超级高校级的游戏玩家",
+                "抽签结果：超级高校级的侦探",
+                "抽签结果：超级高校级的偶像",
+                "抽签结果：超级高校级的骗子",
+                "抽签结果：超级高校级的护士",
                 "抽签结果：超高校级的？？？（数据被学园长加密）",
                 "⚠️ 该候选人危险度A级（详情请至监视室）",
                 "抽签结果：超级高校级的？？？（才能分类无法识别）",
@@ -407,67 +440,97 @@
                 "你的数据正在被「新世界程序」解析...",
                 "你的才能就是...没有才能？（系统混乱）",
                 "小高和刚留言：'这个结果是故意的'",
-
-
             ];
             const randomResult = results[Math.floor(Math.random() * results.length)];
             
             alert(randomResult);
         }
+
         // Monokuma语录
-const monokumaQuotes = [
-    "噗噗噗~发现违规行为可是要处刑的哦！",
-    "绝望才是人生的真谛啊！",
-    "你们这些预备学科的家伙，连当实验材料的价值都没有呢~",
-    "希望？那是什么能吃吗？",
-    "想要通过毕业考试？先杀掉两个同学再说吧！",
-    "学级裁判要开始咯~不找出凶手的话，大家都要死哦！",
-    "我的熊猫玩偶服下面可是藏着狼牙棒的！",
-    "看到那边的处刑装置了吗？是专门为你准备的哦~",
-    "预备学科的学生啊，就像垃圾场的老鼠一样呢！",
-    "希望之峰学园的秘密...你想知道吗？不过知道的话...会死哦！"
-];
+        const monokumaQuotes = [
+            "噗噗噗~发现违规行为可是要处刑的哦！",
+            "绝望才是人生的真谛啊！",
+            "你们这些预备学科的家伙，连当实验材料的价值都没有呢~",
+            "希望？那是什么能吃吗？",
+            "想要通过毕业考试？先杀掉两个同学再说吧！",
+            "学级裁判要开始咯~不找出凶手的话，大家都要死哦！",
+            "我的熊猫玩偶服下面可是藏着狼牙棒的！",
+            "看到那边的处刑装置了吗？是专门为你准备的哦~",
+            "预备学科的学生啊，就像垃圾场的老鼠一样呢！",
+            "希望之峰学园的秘密...你想知道吗？不过知道的话...会死哦！"
+        ];
 
-function speakMonokuma() {
-    const randomIndex = Math.floor(Math.random() * monokumaQuotes.length);
-    const speech = `【黑白熊】\n"${monokumaQuotes[randomIndex]}"`;
-    
-    // 创建自定义对话框
-    const dialog = document.createElement('div');
-    dialog.style.position = 'fixed';
-    dialog.style.bottom = '140px';
-    dialog.style.right = '30px';
-    dialog.style.backgroundColor = 'rgba(0,0,0,0.9)';
-    dialog.style.color = 'white';
-    dialog.style.padding = '15px';
-    dialog.style.borderRadius = '10px';
-    dialog.style.border = '3px solid red';
-    dialog.style.fontFamily = 'Arial';
-    dialog.style.maxWidth = '250px';
-    dialog.style.textShadow = '0 0 5px crimson';
-    dialog.style.zIndex = '10000';
-    dialog.innerHTML = speech;
+        function speakMonokuma() {
+            const randomIndex = Math.floor(Math.random() * monokumaQuotes.length);
+            const speech = `【黑白熊】\n"${monokumaQuotes[randomIndex]}"`;
+            
+            // 创建自定义对话框
+            const dialog = document.createElement('div');
+            dialog.style.position = 'fixed';
+            dialog.style.bottom = '140px';
+            dialog.style.right = '30px';
+            dialog.style.backgroundColor = 'rgba(0,0,0,0.9)';
+            dialog.style.color = 'white';
+            dialog.style.padding = '15px';
+            dialog.style.borderRadius = '10px';
+            dialog.style.border = '3px solid red';
+            dialog.style.fontFamily = 'Arial';
+            dialog.style.maxWidth = '250px';
+            dialog.style.textShadow = '0 0 5px crimson';
+            dialog.style.zIndex = '10000';
+            dialog.innerHTML = speech;
 
-    // 添加箭头
-    const arrow = document.createElement('div');
-    arrow.style.position = 'absolute';
-    arrow.style.bottom = '-20px';
-    arrow.style.right = '30px';
-    arrow.style.width = '0';
-    arrow.style.height = '0';
-    arrow.style.borderLeft = '15px solid transparent';
-    arrow.style.borderRight = '15px solid transparent';
-    arrow.style.borderTop = '20px solid red';
-    dialog.appendChild(arrow);
+            // 添加箭头
+            const arrow = document.createElement('div');
+            arrow.style.position = 'absolute';
+            arrow.style.bottom = '-20px';
+            arrow.style.right = '30px';
+            arrow.style.width = '0';
+            arrow.style.height = '0';
+            arrow.style.borderLeft = '15px solid transparent';
+            arrow.style.borderRight = '15px solid transparent';
+            arrow.style.borderTop = '20px solid red';
+            dialog.appendChild(arrow);
 
-    document.body.appendChild(dialog);
+            document.body.appendChild(dialog);
 
-    // 3秒后消失
-    setTimeout(() => {
-        dialog.remove();
-    }, 3000);
-}
+            // 3秒后消失
+            setTimeout(() => {
+                dialog.remove();
+            }, 3000);
+        }
+
+        // 显示机密内容
+        function showSecret() {
+            const password = prompt("请输入访问机密内容的密码：");
+            if (password === "11037") {
+                const content = "神座出流计划：学园从创立之初就以培养出拥有人类一切才能的代表全世界人类\"真正的希望\"的\"超高校级的希望\"为目标，以学园创立者神座出流的名字命名的该计划从学院建立之初即开始实施。\n\n学校在培养各个领域的栋梁时，也在秘密的研究这些过人才能的秘密。由于研究资金的缺乏而开设了预备学科，表面上看是通过普通考试进入学园的学霸中的学霸、可能将来会觉醒超高校级才能的预备役，实际上是只要交够足够的学费即可进入学园。\n\n相当一大部分学生因为憧憬希望之峰学园而选择了预备学科，这也为研究提供了大量的资金。\n\n在研究告一段落后，希望之峰学园决定从预备学科中找一个毫无才能、牺牲了也不可惜的学生日向创进行人体试验。在他自信受挫后同意配合的前提下，我们对这个学生的大脑直接进行了改造，剔除了所有影响获取才能的感情与人格。这名学生也从此成为拥有各种超高校级才能，被称为\"超高校级的希望\"的神座出流。希望之峰学园一直对此秘而不宣，就连在校学生也仅仅知道神座出流这个名字。";
+                document.getElementById("secretContent").textContent = content;
+                document.getElementById("despairVideo").classList.remove("hidden");
+                document.getElementById("secretModal").classList.remove("hidden");
+                window.scrollTo({ top: document.getElementById("secretModal").offsetTop - 50, behavior: 'smooth' });
+            } else if (password !== null) {
+                alert("密码错误。无法显示机密内容。");
+            }
+        }
+
+        // 确认播放绝望影片
+        function confirmDespair() {
+            if(confirm("警告：此影片包含强烈的绝望暗示内容。\n\n继续播放可能导致不可逆的心理影响。\n\n确定要继续吗？")) {
+                document.getElementById("zvVideo").play();
+                document.body.classList.add('pulse-effect');
+                
+                // 3秒后移除动画效果
+                setTimeout(() => {
+                    document.body.classList.remove('pulse-effect');
+                }, 1500);
+                
+                // 播放后添加特殊效果
+                setTimeout(() => {
+                    document.body.style.filter = "brightness(0.8)";
+                }, 5000);
+            }
+        }
     </script>
-    <img src="monokuma.png" alt="Monokuma" class="monokuma" onclick="speakMonokuma()">
 </body>
 </html>
