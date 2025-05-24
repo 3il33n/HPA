@@ -132,7 +132,9 @@
 <body>
     <div class="header">
         <div class="logo-container">
-            <img src="logo.png" alt="logo" class="logo-img">
+            <a href="index.html">
+    <img src="logo.png" alt="logo" class="logo-img" style="cursor: pointer;">
+</a>
             <div>
                 <div class="logo-text">私立希望ヶ峰学園</div>
                 <div class="glow">~培养未来精英的超精英学校~</div>
@@ -141,7 +143,7 @@
     </div>
 
     <div class="container">
-        <h1>私立希望之峰学园 入学申请</h1>
+        <h1>私立希望ヶ峰学園 入学申请</h1>
         <p>欢迎申请入学私立希望之峰学园。请填写以下表格并提交您的申请。所有带星号(*)的字段为必填项。</p>
         
         <form id="admissionForm">
@@ -274,9 +276,11 @@
                 this.style.background = '#8b0000';
             };
             closeBtn.onclick = function() {
-                document.body.removeChild(modal);
-                document.getElementById('admissionForm').reset();
+            document.body.removeChild(modal);
+            document.getElementById('admissionForm').reset();
+            window.location.href = "index.html";
             };
+
             
             modalContent.appendChild(h2);
             modalContent.appendChild(p);
