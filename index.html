@@ -512,6 +512,85 @@
                 document.getElementById("despairVideo").classList.remove("hidden");
                 document.getElementById("secretModal").classList.remove("hidden");
                 window.scrollTo({ top: document.getElementById("secretModal").offsetTop - 50, behavior: 'smooth' });
+    const glitchOverlay = document.createElement('div');
+    glitchOverlay.style.position = 'fixed';
+    glitchOverlay.style.top = '0';
+    glitchOverlay.style.left = '0';
+    glitchOverlay.style.width = '100%';
+    glitchOverlay.style.height = '100%';
+    glitchOverlay.style.pointerEvents = 'none';
+    glitchOverlay.style.zIndex = '9999';
+    document.body.appendChild(glitchOverlay);
+
+    // 动画参数
+    let glitchProgress = 0;
+    const glitchDuration = 20000; // 20秒慢慢崩坏
+    const glitchStep = 100;       // 每0.1秒更新一次
+    const totalSteps = glitchDuration / glitchStep;
+
+    const glitchInterval = setInterval(() => {
+        glitchProgress++;
+        const pct = glitchProgress / totalSteps;
+
+        // 字体漂移、旋转、颜色
+        document.body.style.transform = `translate(${(Math.random()-0.5)*pct*20}px, ${(Math.random()-0.5)*pct*20}px) rotate(${(Math.random()-0.5)*pct*5}deg)`;
+        document.body.style.filter = `hue-rotate(${pct*60}deg) contrast(${1+pct*0.5}) brightness(${1-pct*0.2})`;
+        document.body.style.color = `rgb(${255}, ${Math.floor(50 + pct*205)}, ${Math.floor(50 + pct*205)})`;
+
+        // 扫描线效果
+        glitchOverlay.innerHTML = '';
+        const lines = 30;
+        for (let i = 0; i < lines; i++) {
+            const line = document.createElement('div');
+            line.style.position = 'absolute';
+            line.style.top = `${Math.random()*100}%`;
+            line.style.left = '0';
+            line.style.width = '100%';
+            line.style.height = '2px';
+            line.style.background = `rgba(255,255,255,${Math.random()*0.05*pct})`;
+            glitchOverlay.appendChild(line);
+        }
+
+        // 噪点颗粒
+        for (let i = 0; i < 50; i++) {
+            const dot = document.createElement('div');
+            dot.style.position = 'absolute';
+            dot.style.top = `${Math.random()*100}%`;
+            dot.style.left = `${Math.random()*100}%`;
+            dot.style.width = '2px';
+            dot.style.height = '2px';
+            dot.style.background = `rgba(255,255,255,${Math.random()*0.2*pct})`;
+            glitchOverlay.appendChild(dot);
+        }
+
+        if (glitchProgress >= totalSteps) {
+            clearInterval(glitchInterval);
+
+            // 移除动画效果，显示终止访问
+            document.body.style.transform = 'none';
+            document.body.style.filter = 'none';
+            document.body.innerHTML = `
+                <div style="
+                    text-align:center;
+                    margin-top:20vh;
+                    font-family:monospace;
+                    color:#f00;
+                    font-size:1.8rem;
+                    line-height:1.8;
+                ">
+                    <h1 style="font-size:3.6rem; margin-bottom:1.2rem; letter-spacing:4px;">【连接中断】</h1>
+                    <p>你未经授权看到了不该看的东西。</p>
+                    <p>希望之峰学园不会允许泄露任何真相。</p>
+                    <p>你的位置已被学园长定位。</p>
+                    <p style="margin-top:40px; color:#888; font-size:1.3rem;">——终止访问。</p>
+                </div>
+            `;
+            document.title = "访问已终止";
+
+            // 移除覆盖层
+            glitchOverlay.remove();
+        }
+    }, glitchStep);
             } else if (password !== null) {
                 alert("密码错误。无法显示机密内容。");
             }
