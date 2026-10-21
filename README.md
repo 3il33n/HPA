@@ -1,2 +1,3 @@
-# 一个希望之峰学园网页
-![d8634bc8da9fd979707b4093d398c427](https://github.com/user-attachments/assets/3e7df44e-268b-4224-84cf-adccfc1bcb43)
+一个以《弹丸论破》系列中的**希望之峰学园**为主题的静态粉丝站点。
+
+本项目为粉丝作品，与 Spike Chunsoft 无关；相关角色与设定版权归原作者所有。

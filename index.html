@@ -1,635 +1,652 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>私立希望之峰学园 — 培养超高校级的才能</title>
-    <style>
-        :root {
-            --blood-red: #8b0000;
-            --orange-red: #ff4500;
-            --dark-bg: #121212;
-            --darker-bg: #1e1e1e;
-            --container-bg: #1e1e1e;
-            --border-color: #333;
-            --text-light: #e0e0e0;
-            --text-lighter: #ffffff;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            position: relative;
-        }
-        .header {
-            background-color: #000000;
-            color: var(--text-lighter);
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            border-bottom: 3px solid var(--blood-red);
-            position: relative;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-        .logo-img {
-            height: 80px;
-            width: auto;
-        }
-        .logo-text {
-            font-size: 2.5em;
-            font-weight: bold;
-            background: linear-gradient(90deg, var(--blood-red), var(--orange-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
-        }
-        .glow {
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--blood-red);
-            }
-            to {
-                text-shadow: 0 0 10px #fff, 0 0 20px var(--orange-red), 0 0 30px var(--orange-red);
-            }
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 8px 15px;
-            position: relative;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-        nav a:hover {
-            color: var(--orange-red);
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--orange-red);
-            transition: width 0.3s;
-        }
-        nav a:hover::after {
-            width: 100%;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 30px;
-            background-color: var(--container-bg);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border: 1px solid var(--border-color);
-        }
-        .section-title {
-            color: var(--orange-red);
-            border-bottom: 2px solid var(--blood-red);
-            padding-bottom: 10px;
-            margin-top: 40px;
-            text-shadow: 0 0 8px rgba(139, 0, 0, 0.3);
-        }
-        .student-card {
-            background-color: rgba(139, 0, 0, 0.1);
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 3px solid var(--blood-red);
-            transition: all 0.3s;
-            border-radius: 4px;
-        }
-        .student-card:hover {
-            background-color: rgba(139, 0, 0, 0.2);
-            transform: translateX(5px);
-            box-shadow: 0 0 15px rgba(139, 0, 0, 0.2);
-        }
-        .censored {
-            background-color: black;
-            color: black;
-            padding: 0 5px;
-            cursor: help;
-            transition: all 0.3s;
-        }
-        .censored:hover {
-            color: var(--text-light);
-            background-color: var(--blood-red);
-        }
-        .btn {
-            background: linear-gradient(135deg, var(--blood-red), var(--orange-red));
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            display: inline-block;
-            margin: 10px 0;
-        }
-        .btn:hover {
-            background: linear-gradient(135deg, #6b0000, #e03e00);
-            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
-            transform: translateY(-2px);
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #777;
-            font-size: 14px;
-            padding: 20px;
-            background-color: #000;
-        }
-        .monokuma {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: all 0.3s;
-            filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.5));
-        }
-        .monokuma:hover {
-            opacity: 1;
-            transform: rotate(10deg) scale(1.1);
-        }
-        .hidden {
-            display: none;
-        }
-        .notice-alert {
-            border: 1px solid var(--blood-red);
-            padding: 15px;
-            background-color: rgba(139, 0, 0, 0.1);
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-        .slideshow {
-            height: 400px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        .slideshow-text {
-            font-size: 2.5em;
-            color: white;
-            text-shadow: 0 0 10px var(--blood-red);
-            text-align: center;
-            padding: 20px;
-            max-width: 800px;
-        }
-        ::selection {
-            background: var(--blood-red);
-            color: white;
-        }
-        .facility-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .facility-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #333;
-        }
-        .facility-list li::before {
-            content: "▶";
-            color: var(--orange-red);
-            margin-right: 10px;
-        }
-        .countdown {
-            font-family: 'Courier New', monospace;
-            font-size: 1.2em;
-            color: var(--orange-red);
-        }
-        .required:after {
-            content: " *";
-            color: var(--orange-red);
-        }
-        .monokuma {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
-            cursor: pointer;
-            opacity: 0.9;
-            transition: all 0.3s;
-            filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.5));
-            z-index: 9999;
-        }
-        .monokuma:hover {
-            opacity: 1;
-            transform: rotate(10deg) scale(1.1);
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
-        }
-        #despairVideo {
-            margin-top: 30px;
-            border-top: 2px dashed var(--blood-red);
-            padding-top: 20px;
-        }
-        #zvVideo {
-            background-color: #000;
-        }
-        .despair-warning {
-            color: var(--orange-red);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-            font-weight: bold;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(139, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
-        }
-        .pulse-effect {
-            animation: pulse 0.5s 3;
-        }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <div class="logo-container">
-            <img src="logo.png" alt="logo" class="logo-img">
-            <div>
-                <div class="logo-text">私立希望ヶ峰学園</div>
-                <div class="glow">~培养未来精英的超精英学校~</div>
-            </div>
-        </div>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="私立希望ヶ峰学园——为培养「超高校级」才能者而设立的全寄宿制教育机构。学园概要、入学指南、在校生名录与重要通知。"
+    />
+    <meta name="theme-color" content="#060607" />
+    <title>私立希望ヶ峰学園 — 培养超高校级的才能</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳至主要内容</a>
+    <div class="grain" aria-hidden="true"></div>
 
-    <nav>
-        <a href="#about">学园概要</a>
-        <a href="#admission">入学指南</a>
-        <a href="#students">在校生</a>
-        <a href="#facilities">设施介绍</a>
-        <a href="#notice">重要通知</a>
-        <a href="apply.html" class="apply-button">入学申请</a>
-        <a href="javascript:void(0)" onclick="showSecret()" style="text-decoration: line-through; color: gray;">机密内容</a>
+    <!-- ================= 导航 ================= -->
+    <nav class="site-nav" aria-label="主导航">
+      <div class="shell site-nav__inner">
+        <a class="site-nav__brand" href="index.html" aria-label="私立希望ヶ峰学园首页">
+          <img src="logo.png" alt="" width="34" height="33" />
+          <span class="site-nav__brand-text">
+            <span class="site-nav__brand-jp">希望ヶ峰學園</span>
+            <span class="site-nav__brand-en">Hope's Peak Academy</span>
+          </span>
+        </a>
+
+        <div class="site-nav__links" id="navLinks">
+          <a class="site-nav__link" href="#about" data-nav-section="about">学园概要</a>
+          <a class="site-nav__link" href="#admission" data-nav-section="admission">入学指南</a>
+          <a class="site-nav__link" href="#students" data-nav-section="students">在校生</a>
+          <a class="site-nav__link" href="#facilities" data-nav-section="facilities">设施介绍</a>
+          <a class="site-nav__link" href="#notice" data-nav-section="notice">重要通知</a>
+          <a class="site-nav__link site-nav__link--mobile" href="apply.html">入学申请</a>
+          <a class="site-nav__secret site-nav__secret--mobile" href="#" data-modal-open="secretModal">
+            机密内容
+          </a>
+        </div>
+
+        <div class="site-nav__actions">
+          <a class="btn btn--sm" href="apply.html">
+            入学申请
+            <span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="navLinks"
+            aria-label="展开导航菜单"
+          >
+            <span></span>
+          </button>
+        </div>
+      </div>
     </nav>
 
-    <div id="secretModal" class="hidden container">
-        <h2 class="section-title">机密内容</h2>
-        <p id="secretContent" class="notice-alert"></p>
-        
-        <div id="despairVideo" class="hidden">
-            <h3 style="color: var(--blood-red);">绝望影片档案 ZV.mp4</h3>
-            <p style="font-style: italic; color: #aaa;">
-                <span class="despair-warning">※ 由江之岛盾子拍摄，御手洗亮太剪辑的绝望影片 ※</span><br>
-                <span style="font-size: 0.8em;">警告：此内容可能造成心理不适</span>
-            </p>
-            
-            <video id="zvVideo" width="100%" controls style="margin: 20px 0; border: 2px solid var(--blood-red);">
-                <source src="ZV.mp4" type="video/mp4">
-                您的浏览器不支持视频播放。
-            </video>
-            
-            <div class="notice-alert" style="background-color: rgba(139, 0, 0, 0.2);">
-                <h4>档案说明：</h4>
-                <p>此影片是"人类史上最大最恶的绝望事件"的关键传播媒介之一，包含强烈的洗脑暗示。</p>
-                <p>观看后可能出现：</p>
-                <ul>
-                    <li>情绪剧烈波动</li>
-                    <li>认知扭曲</li>
-                    <li>对希望的质疑</li>
-                    <li>不可逆的绝望倾向</li>
-                </ul>
-                <button class="btn" onclick="confirmDespair()" style="background: linear-gradient(135deg, #333, #000);">
-                    我理解风险并确认播放
-                </button>
-                <p style="font-size: 0.7em; margin-top: 10px; color: #aaa;">
-                    * 根据希望之峰学园第15条特别规定，观看此影片需承担全部责任 *
-                </p>
+    <!-- ================= 页头 ================= -->
+    <header class="site-header">
+      <div class="site-header__bg" aria-hidden="true"></div>
+      <div class="site-header__stripes" aria-hidden="true"></div>
+
+      <div class="shell site-header__inner">
+        <div>
+          <p class="site-header__eyebrow">第 78 届招生 · 预备学科开放中</p>
+
+          <div class="site-header__crest">
+            <img src="logo.png" alt="希望ヶ峰学园校徽" width="76" height="74" />
+            <h1 class="site-header__title">
+              私立希望ヶ峰学園
+              <em>Hope's Peak Academy</em>
+            </h1>
+          </div>
+
+          <p class="site-header__lead">
+            为培养被称为<strong>「超高校级」</strong>的卓越才能者而设立的全寄宿制教育机构。
+            在这里，才能是被承认的唯一通货。
+          </p>
+
+          <div class="site-header__actions">
+            <a class="btn" href="apply.html">
+              提交入学申请
+              <span class="btn__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn--ghost" href="#about">了解学园</a>
+          </div>
+        </div>
+
+        <!-- 档案卡 -->
+        <aside class="hero-card" aria-label="学园档案概要">
+          <div class="hero-card__head">
+            <span class="hero-card__no">FILE NO. HP-078</span>
+            <span class="hero-card__stamp">CONFIDENTIAL</span>
+          </div>
+
+          <dl class="stat-list">
+            <div class="stat-list__row">
+              <dt>建校</dt>
+              <dd>1932<span class="unit">年</span></dd>
             </div>
-        </div>
+            <div class="stat-list__row">
+              <dt>在校生</dt>
+              <dd>78<span class="unit">名</span></dd>
+            </div>
+            <div class="stat-list__row">
+              <dt>才能认定率</dt>
+              <dd>0.003<span class="unit">%</span></dd>
+            </div>
+            <div class="stat-list__row">
+              <dt>当前状态</dt>
+              <dd style="color: #ff8b8b">无限期关闭</dd>
+            </div>
+          </dl>
+
+          <p class="hero-card__foot">
+            本档案由学园长办公室维护<br />
+            未经授权的复制与传播将被追究
+          </p>
+        </aside>
+      </div>
+    </header>
+
+    <!-- 跑马灯 -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Talent is the light that illuminates hope</span>
+        <span>才能は希望を照らす光</span>
+        <span>Ultimate · Hope · Despair</span>
+        <span>私立希望ヶ峰学園</span>
+        <span>Talent is the light that illuminates hope</span>
+        <span>才能は希望を照らす光</span>
+        <span>Ultimate · Hope · Despair</span>
+        <span>私立希望ヶ峰学園</span>
+      </div>
     </div>
 
-    <div class="slideshow">
-        <div class="slideshow-text">
-            才能は希望を照らす光<br>
-            <span style="font-size: 0.6em;">TALENT IS THE LIGHT THAT ILLUMINATES HOPE</span>
-        </div>
-    </div>
+    <main id="main">
+      <!-- ================= 学园概要 ================= -->
+      <section class="section" id="about" aria-labelledby="aboutTitle">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <span class="section-head__index">01</span>
+            <h2 class="section-head__title" id="aboutTitle">
+              学园概要
+              <small>About the Academy</small>
+            </h2>
+            <span class="section-head__rule" aria-hidden="true"></span>
+          </div>
 
-    <div class="container">
-        <h2 id="about" class="section-title">学园概要</h2>
-        <p>希望之峰学园是一所为了培养被称为「超高校级」的卓越才能学生而设立的全寄宿制教育机构。</p>
-        <p>校训：<strong>「绝望正是希望的起点」</strong></p>
-        
-        <div class="notice-alert">
-            <h3 style="margin-top: 0; color: var(--orange-red);">学园的特点</h3>
-            <ul>
+          <div class="overview">
+            <div data-reveal>
+              <p class="overview__lead">
+                希望之峰学园是一所为了培养被称为
+                <strong>「超高校级」</strong>的卓越才能学生而设立的全寄宿制教育机构。
+              </p>
+              <p class="overview__body">
+                校训：<strong>「绝望正是希望的起点」</strong><br />
+                自创立以来，学园只向被才能审查委员会认定的人敞开大门。毕业生活跃于政界、财界、艺术与科学的各个顶点，
+                以至于有人说——世界的走向，是由这所学园的校友名单决定的。
+              </p>
+
+              <button
+                class="rule-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="rule15-content"
+                data-rule-trigger
+              >
+                <span>校规第 15 条 · 点击查阅</span>
+                <span class="rule-trigger__icon" aria-hidden="true">+</span>
+              </button>
+
+              <div class="collapse" id="rule15-content" data-open="false">
+                <div class="collapse__inner">
+                  <div class="collapse__content">
+                    <div class="panel panel--alert">
+                      <p class="panel__label">
+                        <span class="tag__dot" aria-hidden="true"></span>
+                        校规 · 第 15 条
+                      </p>
+                      <p class="panel__title">无论任何情况，必须服从学园长的指示。</p>
+                      <p
+                        style="
+                          font-family: var(--font-mono);
+                          font-size: 0.78rem;
+                          letter-spacing: 0.1em;
+                          color: var(--ember);
+                        "
+                      >
+                        违者将被立即处以退学处分。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" data-reveal style="--reveal-delay: 90ms">
+              <p class="panel__label">学园的特点</p>
+              <ul class="rule-list">
                 <li>仅招收来自全国、被认证为「超高校级」的学生</li>
                 <li>完全封闭式的教育环境</li>
                 <li>将每位学生的才能发挥到极致的课程体系</li>
                 <li>毕业生活跃于各界并担任领导职务</li>
-            </ul>
-        </div>
-
-        <p id="rule15" style="cursor: pointer; text-decoration: underline dotted;">▶ 【校规第15条】</p>
-        <div id="rule15-content" class="hidden notice-alert">
-            <p>* 无论任何情况，必须服从学园长的指示。 *</p>
-            <p style="font-family: 'Courier New', monospace; color: var(--orange-red);">* 违者将被立即处以退学处分。 *</p>
-        </div>
-
-        <h2 id="admission" class="section-title">入学指南</h2>
-        <div>
-            <h3>招生要项</h3>
-            <p>选拔方式：由才能审查委员会进行认定</p>
-            
-            <div class="student-card">
-                <h4>招生对象</h4>
-                <p>年龄在15至18岁之间，具备被认定为「超高校级」的才能者</p>
-                
-                <h4>选拔流程</h4>
-                <ol>
-                    <li>提交才能认定申请书</li>
-                    <li>实技审查（根据才能领域而定）</li>
-                    <li>最终面试（由学园长亲自进行）</li>
-                </ol>
-                
-                <button class="btn" onclick="showRandomResult()">命运抽选按钮</button>
-                <p style="font-size: 0.8em; color: #777;">※抽选结果并不保证为实际的选拔结果</p>
+              </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 入学指南 ================= -->
+      <section class="section" id="admission" aria-labelledby="admissionTitle">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <span class="section-head__index">02</span>
+            <h2 class="section-head__title" id="admissionTitle">
+              入学指南
+              <small>Admissions</small>
+            </h2>
+            <span class="section-head__rule" aria-hidden="true"></span>
+          </div>
+
+          <div class="grid-2">
+            <div data-reveal>
+              <h3 style="font-family: var(--font-serif); font-size: var(--step-2)">招生要项</h3>
+              <p style="margin-top: 0.6rem; color: var(--paper-dim)">
+                选拔方式：由才能审查委员会进行认定。学园不接受自荐以外的任何推荐渠道。
+              </p>
+
+              <ol class="steps" style="margin-top: 1.5rem">
+                <li>
+                  <div>
+                    <h4>提交才能认定申请书</h4>
+                    <p>在线填写并提交完整的申请材料，包括才能成就与动机说明。</p>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h4>实技审查</h4>
+                    <p>根据才能领域而定，由对应学科的取缔役亲自评估。</p>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h4>最终面试</h4>
+                    <p>由学园长亲自进行。这一环节通常没有固定问题。</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="panel" data-reveal style="--reveal-delay: 90ms">
+              <p class="panel__label">招生对象</p>
+              <p class="panel__title">15 至 18 岁</p>
+              <p style="color: var(--paper-dim)">
+                具备被认定为「超高校级」的才能者。年龄并非绝对条件，才能的纯粹性才是。
+              </p>
+
+              <hr
+                style="margin: 1.35rem 0; border: 0; border-top: 1px dashed var(--line)"
+              />
+
+              <p class="panel__label">命运抽选</p>
+              <p style="font-size: var(--step--1); color: var(--paper-dim)">
+                不确定自己的才能？让学园的数据库替你决定。
+              </p>
+              <button class="btn btn--quiet btn--block" type="button" data-draw style="margin-top: 0.9rem">
+                开始随机认定
+              </button>
+              <div id="drawResult" class="draw-result" role="status" aria-live="polite" hidden></div>
+              <p class="note" style="margin-top: 0.75rem">
+                ※ 抽选结果并不保证为实际的选拔结果
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 在校生 ================= -->
+      <section class="section" id="students" aria-labelledby="studentsTitle">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <span class="section-head__index">03</span>
+            <h2 class="section-head__title" id="studentsTitle">
+              在校生一览
+              <small>Student Registry</small>
+            </h2>
+            <span class="section-head__rule" aria-hidden="true"></span>
+          </div>
+
+          <div class="students">
+            <article class="student" data-reveal>
+              <div class="student__top">
+                <span class="student__id">ID · 77-013</span>
+                <span class="student__grade" aria-label="才能评价 C">C</span>
+              </div>
+              <h3 class="student__name">
+                日向<span class="censored" tabindex="0" title="档案已涂黑">■</span>
+                <span class="student__talent">超高校级的？？？</span>
+              </h3>
+              <div class="student__meta">
+                <span>预备学科</span>
+                <span>才能评价 C</span>
+                <span>状态：在籍</span>
+              </div>
+            </article>
+
+            <article class="student" data-reveal style="--reveal-delay: 80ms">
+              <div class="student__top">
+                <span class="student__id">ID · 77-015</span>
+                <span class="student__grade" aria-label="才能评价 A+">A+</span>
+              </div>
+              <h3 class="student__name">
+                七海<span class="censored" tabindex="0" title="档案已涂黑">■■</span>
+                <span class="student__talent">超高校级的游戏玩家</span>
+              </h3>
+              <div class="student__meta">
+                <span>本科</span>
+                <span>才能评价 A+</span>
+                <span>状态：在籍</span>
+              </div>
+            </article>
+
+            <article class="student" data-reveal style="--reveal-delay: 160ms">
+              <div class="student__top">
+                <span class="student__id">ID · 77-000</span>
+                <span class="student__grade" aria-label="才能评价 未公开">—</span>
+              </div>
+              <h3 class="student__name">
+                神座<span class="censored" tabindex="0" title="档案已涂黑">■■</span>
+                <span class="student__talent">超高校级的希望</span>
+              </h3>
+              <div class="student__meta">
+                <span>特待生</span>
+                <span>才能评价 未公开</span>
+                <span>状态：<span style="color: #ff8b8b">禁止访问</span></span>
+              </div>
+            </article>
+          </div>
+
+          <p class="note" style="margin-top: 1.35rem; text-align: center; font-style: italic">
+            ※ 详细信息仅限于校内网络访问。
+          </p>
+        </div>
+      </section>
+
+      <!-- ================= 设施 ================= -->
+      <section class="section" id="facilities" aria-labelledby="facilitiesTitle">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <span class="section-head__index">04</span>
+            <h2 class="section-head__title" id="facilitiesTitle">
+              设施介绍
+              <small>Campus Facilities</small>
+            </h2>
+            <span class="section-head__rule" aria-hidden="true"></span>
+          </div>
+
+          <div class="facilities" data-reveal>
+            <article class="facility">
+              <span class="facility__no">FACILITY 01</span>
+              <h3 class="facility__name">才能开发研究所</h3>
+              <p class="facility__desc">旨在极限挖掘学生才能的最新设施。</p>
+            </article>
+            <article class="facility">
+              <span class="facility__no">FACILITY 02</span>
+              <h3 class="facility__name">监视室</h3>
+              <p class="facility__desc">管理整个学园安全的中央监控设施。</p>
+            </article>
+            <article class="facility">
+              <span class="facility__no">FACILITY 03</span>
+              <h3 class="facility__name">学园审判场</h3>
+              <p class="facility__desc">审理重大规章违规事件的法庭。</p>
+            </article>
+            <article class="facility">
+              <span class="facility__no">FACILITY 04</span>
+              <h3 class="facility__name">希望之峰塔</h3>
+              <p class="facility__desc">学园的象征，毕业典礼举办地。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 通知 ================= -->
+      <section class="section" id="notice" aria-labelledby="noticeTitle">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <span class="section-head__index">05</span>
+            <h2 class="section-head__title" id="noticeTitle">
+              重要通知
+              <small>Notices</small>
+            </h2>
+            <span class="section-head__rule" aria-hidden="true"></span>
+          </div>
+
+          <div class="notice-list">
+            <article class="notice notice--urgent" data-reveal>
+              <div class="notice__date">
+                <b>今</b>
+                <span>URGENT</span>
+              </div>
+              <div>
+                <h3 class="notice__title">【紧急】关于学校关闭措施</h3>
+                <p class="notice__body">
+                  「从今日起实施无限期关闭措施。在校学生请各自留在教室等待。」
+                </p>
+                <p class="notice__body">
+                  违反者：
+                  <span class="censored" tabindex="0" title="已涂黑">苗木■</span>、
+                  <span class="censored" tabindex="0" title="已涂黑">十神■■</span>、
+                  <span class="censored" tabindex="0" title="已涂黑">雾切■■</span>
+                </p>
+              </div>
+            </article>
+
+            <article class="notice" data-reveal style="--reveal-delay: 80ms">
+              <div class="notice__date">
+                <b>78</b>
+                <span>BULLETIN</span>
+              </div>
+              <div>
+                <h3 class="notice__title">【重要】关于毕业考试</h3>
+                <p class="notice__body">第 77 届毕业考试将以特别形式进行。</p>
+                <p class="notice__body">具体详情将由各班主任通知。</p>
+              </div>
+            </article>
+          </div>
+
+          <div
+            style="margin-top: var(--space-5); display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center"
+          >
+            <a class="btn" href="apply.html">
+              立即申请入学
+              <span class="btn__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn--ghost" href="#" data-modal-open="secretModal">查阅机密档案</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= 页脚 ================= -->
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <div class="site-footer__brand">
+          <img src="logo.png" alt="" width="44" height="43" />
+          <div>
+            <p class="site-footer__name">私立希望ヶ峰學園</p>
+            <p class="site-footer__tagline">
+              HOPE'S PEAK ACADEMY<br />
+              培养未来精英的超精英学校
+            </p>
+          </div>
         </div>
 
-        <h2 id="students" class="section-title">在校生一览</h2>
-        <div class="student-card">
-            <h3>超高校级的??? 日向■</span></h3>
-            <p>才能评价: <span style="color: var(--orange-red); font-weight: bold;">C</span></p>
-        </div>
-        <div class="student-card">
-            <h3>超高校级的游戏玩家 七海■■</span></h3>
-            <p>才能评价: <span style="color: var(--orange-red); font-weight: bold;">A+</span></p>
-        </div>
-        <p style="text-align: center; font-style: italic;">※详细信息仅限于校内网络访问。</p>
+        <nav class="site-footer__col" aria-label="页脚导航">
+          <h3>索引</h3>
+          <ul>
+            <li><a href="#about">学园概要</a></li>
+            <li><a href="#admission">入学指南</a></li>
+            <li><a href="#students">在校生</a></li>
+            <li><a href="#facilities">设施介绍</a></li>
+          </ul>
+        </nav>
 
-        <h2 id="facilities" class="section-title">设施介绍</h2>
-        <ul class="facility-list">
-            <li><strong>才能开发研究所</strong> - 旨在极限挖掘学生才能的最新设施</li>
-            <li><strong>监视室</strong> - 管理整个学园安全的中央监控设施</li>
-            <li><strong>学园审判场</strong> - 审理重大规章违规事件的法庭</li>
-            <li><strong>希望之峰塔</strong> - 学园的象征，毕业典礼举办地</li>
-        </ul>
-
-        <h2 id="notice" class="section-title">重要通知</h2>
-        <div class="notice-alert">
-            <h3 style="margin-top: 0; color: var(--orange-red);">【紧急】关于学校关闭措施</h3>
-            <p>“从今日起实施无限期关闭措施。在校学生请各自留在教室等待。”</p>
-            <p>违反者: <span>苗木■</span>, <span>十神■■</span>, <span >雾切■■</span></p>
+        <div class="site-footer__col">
+          <h3>相关</h3>
+          <ul>
+            <li><a href="apply.html">入学申请</a></li>
+            <li><a href="#" data-modal-open="secretModal">机密档案</a></li>
+            <li><a href="#notice">重要通知</a></li>
+          </ul>
         </div>
-        
-        <div class="notice-alert">
-            <h3 style="margin-top: 0; color: var(--orange-red);">【重要】关于毕业考试</h3>
-            <p>第77届毕业考试将以特别形式进行。</p>
-            <p>具体详情将由各班主任通知。</p>
-        </div>
-    </div>
+      </div>
 
-    <footer>
-        <p>© 2025 私立希望ヶ峰学園 版权所有</p>
-        <p style="margin-top: 15px; color: var(--orange-red); font-weight: bold;">"才能是照亮希望的光。"</p>
+      <div class="shell site-footer__bottom">
+        <span>© <span data-year>2025</span> 私立希望ヶ峰學園 保留所有权利</span>
+        <span class="site-footer__quote">「才能是照亮希望的光。」</span>
+      </div>
     </footer>
 
-    <img src="monokuma.png" alt="Monokuma" class="monokuma" onclick="speakMonokuma()">
+    <button
+      class="monokuma-float"
+      type="button"
+      data-monokuma
+      aria-label="与黑白熊对话"
+      style="padding: 0; border: 0; background: none"
+    >
+      <img src="monokuma.png" alt="" width="92" height="129" />
+    </button>
 
-    <script>
-        // 校规第15条交互
-        document.getElementById('rule15').addEventListener('click', function() {
-            const content = document.getElementById('rule15-content');
-            content.classList.toggle('hidden');
-        });
+    <!-- ================= 机密档案弹窗 ================= -->
+    <div
+      class="modal"
+      id="secretModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="secretTitle"
+      aria-hidden="true"
+    >
+      <div class="modal__dialog">
+        <button class="modal__close" type="button" data-modal-close aria-label="关闭">✕</button>
 
-        // 随机结果
-        function showRandomResult() {
-            const results = [
-                "抽签结果：超高校级的幸运",
-                "抽签结果：超高校级的侦探",
-                "抽签结果：超高校级的黑客",
-                "抽签结果：超高校级的绝望？",
-                "抽签结果：超高校级的游戏玩家",
-                "抽签结果：超高校级的侦探",
-                "抽签结果：超高校级的偶像",
-                "抽签结果：超高校级的骗子",
-                "抽签结果：超高校级的护士",
-                "抽签结果：超高校级的？？？（数据被学园长加密）",
-                "⚠️ 该候选人危险度A级（详情请至监视室）",
-                "抽签结果：超高校级的？？？（才能分类无法识别）",
-                "审核中……（系统发生错误）",
-                "⚠️ 该生档案与第16号密室事件关联",
-                "⚠️此档案与『江之岛盾子』相似度92%",
-                "你的数据正在被「新世界程序」解析...",
-                "你的才能就是...没有才能？（系统混乱）",
-                "小高和刚留言：'这个结果是故意的'",
-            ];
-            const randomResult = results[Math.floor(Math.random() * results.length)];
-            
-            alert(randomResult);
-        }
+        <!-- 密码门 -->
+        <div id="secretGate">
+          <p class="modal__label">Restricted Access</p>
+          <h2 class="modal__title" id="secretTitle">机密档案</h2>
+          <p class="modal__text">
+            此档案仅限学园相关者查阅。请输入六位访问密码以继续。
+          </p>
 
-        // Monokuma语录
-        const monokumaQuotes = [
-            "噗噗噗~发现违规行为可是要处刑的哦！",
-            "绝望才是人生的真谛啊！",
-            "你们这些预备学科的家伙，连当实验材料的价值都没有呢~",
-            "希望？那是什么能吃吗？",
-            "想要通过毕业考试？先杀掉两个同学再说吧！",
-            "学级裁判要开始咯~不找出凶手的话，大家都要死哦！",
-            "我的熊猫玩偶服下面可是藏着狼牙棒的！",
-            "看到那边的处刑装置了吗？是专门为你准备的哦~",
-            "预备学科的学生啊，就像垃圾场的老鼠一样呢！",
-            "希望之峰学园的秘密...你想知道吗？不过知道的话...会死哦！"
-        ];
+          <form id="secretForm" novalidate>
+            <div class="modal__field">
+              <label for="secretPassword">访问密码</label>
+              <input
+                type="password"
+                id="secretPassword"
+                name="secretPassword"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="● ● ● ● ●"
+                data-autofocus
+              />
+              <p class="modal__error" id="secretError">密码错误。无法显示机密内容。</p>
+            </div>
 
-        function speakMonokuma() {
-            const randomIndex = Math.floor(Math.random() * monokumaQuotes.length);
-            const speech = `【黑白熊】\n"${monokumaQuotes[randomIndex]}"`;
-            
-            // 创建自定义对话框
-            const dialog = document.createElement('div');
-            dialog.style.position = 'fixed';
-            dialog.style.bottom = '140px';
-            dialog.style.right = '30px';
-            dialog.style.backgroundColor = 'rgba(0,0,0,0.9)';
-            dialog.style.color = 'white';
-            dialog.style.padding = '15px';
-            dialog.style.borderRadius = '10px';
-            dialog.style.border = '3px solid red';
-            dialog.style.fontFamily = 'Arial';
-            dialog.style.maxWidth = '250px';
-            dialog.style.textShadow = '0 0 5px crimson';
-            dialog.style.zIndex = '10000';
-            dialog.innerHTML = speech;
+            <div class="modal__actions">
+              <button class="btn" type="submit">验证并解锁</button>
+              <button class="btn btn--ghost" type="button" data-modal-close>取消</button>
+            </div>
+          </form>
 
-            // 添加箭头
-            const arrow = document.createElement('div');
-            arrow.style.position = 'absolute';
-            arrow.style.bottom = '-20px';
-            arrow.style.right = '30px';
-            arrow.style.width = '0';
-            arrow.style.height = '0';
-            arrow.style.borderLeft = '15px solid transparent';
-            arrow.style.borderRight = '15px solid transparent';
-            arrow.style.borderTop = '20px solid red';
-            dialog.appendChild(arrow);
+          <p class="modal__hint">提示：那串数字与某个人的名字有关。</p>
+        </div>
 
-            document.body.appendChild(dialog);
+        <!-- 解密后的文档 -->
+        <div id="secretDoc" hidden>
+          <p class="modal__label">
+            <span class="tag__dot" aria-hidden="true"></span>
+            Unlocked · 绝密
+          </p>
+          <h2 class="modal__title">神座出流计划</h2>
+          <div class="doc-text" data-secret-body></div>
 
-            // 3秒后消失
-            setTimeout(() => {
-                dialog.remove();
-            }, 3000);
-        }
+          <div class="modal__actions">
+            <button class="btn" type="button" data-modal-close>关闭档案</button>
+            <button class="btn btn--quiet" type="button" data-open-despair>
+              调阅绝望影片 ZV.mp4
+            </button>
+          </div>
+          <p class="modal__hint">
+            ※ 本视频设有观看时长限制，超过 12 秒的观看将被系统强制中断。
+          </p>
+        </div>
+      </div>
+    </div>
 
-        // 显示机密内容
-        function showSecret() {
-            const password = prompt("请输入访问机密内容的密码：");
-            if (password === "11037") {
-                const content = "神座出流计划：学园从创立之初就以培养出拥有人类一切才能的代表全世界人类\"真正的希望\"的\"超高校级的希望\"为目标，以学园创立者神座出流的名字命名的该计划从学院建立之初即开始实施。\n\n学校在培养各个领域的栋梁时，也在秘密的研究这些过人才能的秘密。由于研究资金的缺乏而开设了预备学科，表面上看是通过普通考试进入学园的学霸中的学霸、可能将来会觉醒超高校级才能的预备役，实际上是只要交够足够的学费即可进入学园。\n\n相当一大部分学生因为憧憬希望之峰学园而选择了预备学科，这也为研究提供了大量的资金。\n\n在研究告一段落后，希望之峰学园决定从预备学科中找一个毫无才能、牺牲了也不可惜的学生日向创进行人体试验。在他自信受挫后同意配合的前提下，我们对这个学生的大脑直接进行了改造，剔除了所有影响获取才能的感情与人格。这名学生也从此成为拥有各种超高校级才能，被称为\"超高校级的希望\"的神座出流。希望之峰学园一直对此秘而不宣，就连在校学生也仅仅知道神座出流这个名字。";
-                document.getElementById("secretContent").textContent = content;
-                document.getElementById("despairVideo").classList.remove("hidden");
-                document.getElementById("secretModal").classList.remove("hidden");
-                window.scrollTo({ top: document.getElementById("secretModal").offsetTop - 50, behavior: 'smooth' });
-// 创建覆盖层
-const glitchOverlay = document.createElement('div');
-glitchOverlay.style.position = 'fixed';
-glitchOverlay.style.top = '0';
-glitchOverlay.style.left = '0';
-glitchOverlay.style.width = '100%';
-glitchOverlay.style.height = '100%';
-glitchOverlay.style.pointerEvents = 'none';
-glitchOverlay.style.zIndex = '9999';
-document.body.appendChild(glitchOverlay);
+    <!-- ================= 绝望影片弹窗 ================= -->
+    <div
+      class="modal modal--wide"
+      id="despairModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="despairTitle"
+      aria-hidden="true"
+    >
+      <div class="modal__dialog">
+        <button class="modal__close" type="button" data-modal-close aria-label="关闭">✕</button>
 
-// 崩坏动画参数
-let glitchProgress = 0;
-const glitchDuration = 20000; // 20秒
-const glitchStep = 100;
-const totalSteps = glitchDuration / glitchStep;
+        <p class="modal__label">
+          <span class="tag__dot" aria-hidden="true"></span>
+          Archive · ZV-77
+        </p>
+        <h2 class="modal__title" id="despairTitle">绝望影片档案</h2>
+        <p class="modal__text">
+          由江之岛盾子拍摄，御手洗亮太剪辑。此影片是「人类史上最大最恶的绝望事件」的关键传播媒介之一。
+        </p>
 
-const glitchInterval = setInterval(() => {
-    glitchProgress++;
-    const pct = glitchProgress / totalSteps;
+        <div class="video-frame" style="margin-top: 1.15rem">
+          <div class="video-status" id="videoStatus" aria-live="polite">
+            <span class="video-status__dot" aria-hidden="true"></span>
+            <span class="video-status__label">待播放 · 需确认后开始</span>
+          </div>
+          <!-- 无 controls：播放完全由「风险确认」按钮接管，用户无法暂停、拖动或全屏 -->
+          <video
+            id="zvVideo"
+            preload="metadata"
+            playsinline
+            disablepictureinpicture
+            disableremoteplayback
+            controlslist="nodownload noplaybackrate noremoteplayback"
+            tabindex="-1"
+            aria-label="绝望影片（受控播放）"
+          >
+            <source src="ZV.mp4" type="video/mp4" />
+            您的浏览器不支持视频播放。
+          </video>
+        </div>
 
-    // 崩坏效果
-    document.body.style.transform = `translate(${(Math.random()-0.5)*pct*20}px, ${(Math.random()-0.5)*pct*20}px) rotate(${(Math.random()-0.5)*pct*5}deg)`;
-    document.body.style.filter = `hue-rotate(${pct*60}deg) contrast(${1+pct*0.5}) brightness(${1-pct*0.2})`;
-    document.body.style.color = `rgb(255, ${Math.floor(50 + pct*205)}, ${Math.floor(50 + pct*205)})`;
+        <div class="despair-warning">
+          <span class="despair-warning__mark" aria-hidden="true">!</span>
+          <div>
+            <h3 class="despair-warning__title">观看后可能出现</h3>
+            <ul class="despair-warning__list">
+              <li>情绪剧烈波动</li>
+              <li>认知扭曲</li>
+              <li>对希望的质疑</li>
+              <li>不可逆的绝望倾向</li>
+            </ul>
+          </div>
+        </div>
 
-    // 扫描线
-    glitchOverlay.innerHTML = '';
-    for (let i = 0; i < 30; i++) {
-        const line = document.createElement('div');
-        line.style.position = 'absolute';
-        line.style.top = `${Math.random()*100}%`;
-        line.style.left = '0';
-        line.style.width = '100%';
-        line.style.height = '2px';
-        line.style.background = `rgba(255,255,255,${Math.random()*0.05*pct})`;
-        glitchOverlay.appendChild(line);
-    }
+        <div class="modal__actions">
+          <button class="btn" type="button" data-despair-play>我理解风险并确认播放</button>
+          <button class="btn btn--ghost" type="button" data-modal-close>离开</button>
+        </div>
 
-    // 噪点
-    for (let i = 0; i < 50; i++) {
-        const dot = document.createElement('div');
-        dot.style.position = 'absolute';
-        dot.style.top = `${Math.random()*100}%`;
-        dot.style.left = `${Math.random()*100}%`;
-        dot.style.width = '2px';
-        dot.style.height = '2px';
-        dot.style.background = `rgba(255,255,255,${Math.random()*0.2*pct})`;
-        glitchOverlay.appendChild(dot);
-    }
+        <p class="modal__hint">
+          * 播放后无法暂停、拖动或全屏，请确认已做好准备 *
+        </p>
+        <p class="modal__hint">
+          * 根据希望之峰学园第 15 条特别规定，观看此影片需承担全部责任 *
+        </p>
+      </div>
+    </div>
 
-    // 结束动画
-    if (glitchProgress >= totalSteps) {
-        clearInterval(glitchInterval);
+    <!-- ================= 接管终幕 ================= -->
+    <div class="takeover" id="takeover" role="alertdialog" aria-label="访问已终止" tabindex="-1" hidden>
+      <div class="takeover__blood" aria-hidden="true"></div>
+      <div class="takeover__scan" aria-hidden="true"></div>
+      <div class="takeover__tear" aria-hidden="true"></div>
+      <div class="takeover__tear takeover__tear--2" aria-hidden="true"></div>
+      <div class="takeover__tear takeover__tear--3" aria-hidden="true"></div>
+      <img class="takeover__monokuma" src="monokuma.png" alt="" aria-hidden="true" />
+      <div class="takeover__alarm" aria-hidden="true"></div>
 
-        // 清空原有内容
-        document.body.innerHTML = '';
-        document.body.style.transform = 'none';
-        document.body.style.filter = 'none';
-        glitchOverlay.remove();
+      <div class="takeover__inner">
+        <p class="takeover__status">Connection Terminated</p>
+        <p class="takeover__text" id="takeoverText"></p>
+      </div>
+    </div>
 
-        // 创建打字机文字容器
-        const textContainer = document.createElement('pre');
-        textContainer.style.textAlign = 'center';
-        textContainer.style.marginTop = '20vh';
-        textContainer.style.fontFamily = 'monospace';
-        textContainer.style.color = '#f00';
-        textContainer.style.fontSize = '1.8rem';
-        textContainer.style.lineHeight = '1.8';
-        textContainer.style.whiteSpace = 'pre-wrap';
-        textContainer.style.pointerEvents = 'none';
-        document.body.appendChild(textContainer);
+    <audio id="kumaLaugh" src="lol.mp3" preload="auto"></audio>
 
-        const finalText = `
-【连接中断】
-你未经授权看到了不该看的东西。
-希望之峰学园不会允许泄露任何真相。
-你的位置已被学园长定位。
-——终止访问。
-        `;
-        let index = 0;
-        const typingSpeed = 50;
-
-        function typeWriter() {
-            if (index < finalText.length) {
-                textContainer.textContent += finalText[index];
-                index++;
-                setTimeout(typeWriter, typingSpeed);
-            }
-        }
-        typeWriter();
-        document.title = "访问已终止";
-    }
-}, glitchStep);
-
-            } else if (password !== null) {
-                alert("密码错误。无法显示机密内容。");
-            }
-        }
-
-        // 确认播放绝望影片
-        function confirmDespair() {
-            if(confirm("警告：此影片包含强烈的绝望暗示内容。\n\n继续播放可能导致不可逆的心理影响。\n\n确定要继续吗？")) {
-                document.getElementById("zvVideo").play();
-                document.body.classList.add('pulse-effect');
-                
-                // 3秒后移除动画效果
-                setTimeout(() => {
-                    document.body.classList.remove('pulse-effect');
-                }, 1500);
-                
-                // 播放后添加特殊效果
-                setTimeout(() => {
-                    document.body.style.filter = "brightness(0.8)";
-                }, 5000);
-            }
-        }
-    </script>
-</body>
+    <script src="js/site.js"></script>
+    <script src="js/home.js"></script>
+  </body>
 </html>
-
