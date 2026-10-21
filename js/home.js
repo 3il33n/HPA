@@ -189,8 +189,8 @@
     const markPlaying = () => {
       document.body.classList.add("is-despair");
       despairButton.disabled = true;
-      despairButton.textContent = "播放中 · 无法暂停或跳过";
-      setStatus("playing", "REC · 正在播放 · 无法暂停");
+      despairButton.textContent = "播放中 · ";
+      setStatus("playing", "REC · 正在播放 · ");
     };
 
     const markStopped = (label) => {
